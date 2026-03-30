@@ -13,7 +13,7 @@ DB_NAME = str(Path(__file__).parent.parent / "db" / "mani_resume_db")
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
 # embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
-embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
 def load_documents():
     print("Loading documents...")
     loader = PDFPlumberLoader(str(Path(__file__).parent.parent / "docs" / "Mani-Resume.pdf"))
@@ -24,7 +24,7 @@ def load_documents():
 
 def split_documents(data): 
     print("Splitting documents into chunks...")
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=2000, chunk_overlap=400)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=00)
     texts = text_splitter.split_documents(data)
     print("spits", [text.page_content for text in texts])
     print(f"Split into {len(texts)} chunks.")
